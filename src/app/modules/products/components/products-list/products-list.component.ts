@@ -1,0 +1,8 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'bank-products-products-list',
+  templateUrl: './products-list.component.html',
+  styleUrls: ['./products-list.component.scss'],
+})
+export class ProductsListComponent {}
