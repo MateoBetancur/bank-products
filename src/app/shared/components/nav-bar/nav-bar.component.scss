@@ -1,0 +1,12 @@
+@import 'src/app/shared/styles/colors';
+.nav-bar{
+    width: 100vw;
+    padding: 1.5rem;
+    position: fixed;
+    top: 0;
+    background-color: $white;
+    img {
+        display: block;
+        margin: auto;
+    }
+}
