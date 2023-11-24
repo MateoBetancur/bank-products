@@ -1,0 +1,25 @@
+@import 'src/app/shared/styles/colors';
+
+.btn {
+    width: 100%;
+    max-width: 8rem;
+    height: 4rem;
+    background-color: $yellow;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: $blue;
+    border: none;
+    border-radius: 2px;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    &:hover {
+        background-color: rgba($color: $yellow, $alpha: 0.6);
+    }
+}
+
+.btn-secundary {
+    background-color: $gray-10;
+    &:hover {
+        background-color: rgba($color: $gray-10, $alpha: 0.6);
+    }
+}

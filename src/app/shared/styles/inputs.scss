@@ -1,0 +1,19 @@
+.form-control {
+    display: flex;
+    flex-direction: column;
+    label {
+        font-weight: 700;
+    }
+    input{
+        border-radius: 0.3rem;
+        border: 1px solid $gray-20;
+        height: 2.5rem;
+        max-width: 16rem;
+        font-size: 1rem;
+        padding: 0.5rem;
+        &:focus{
+            outline: none;
+            border: 1px solid $yellow;
+        }
+    }
+}
