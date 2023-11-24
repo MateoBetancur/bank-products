@@ -12,6 +12,10 @@ export const errorsForm = {
             type: 'maxlength',
             message: 'Deben ser máximo de 10 caracteres'
         },
+        {
+            type: 'invalidId',
+            message: 'ID no válido'
+        }
     ],
     name: [
         {

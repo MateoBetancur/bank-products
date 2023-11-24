@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IProduct } from '../../interfaces/product.interface';
 import { FIVE, ONE_HUNDRED, TEN, THREE, TWO_HUNDRED, ZERO } from 'src/app/core/utils/number.constants';
 import { errorsForm } from '../../utils/errors-form-constants';
+import { ProductsService } from '../../services/products.service';
 
 @Component({
   selector: 'bank-products-product-form',
@@ -13,11 +14,16 @@ export class ProductFormComponent implements OnInit {
   currentDate!: string;
   formErrors = errorsForm;
   productForm = new FormGroup({
-    id: new FormControl('', [
-      Validators.required,
-      Validators.minLength(THREE),
-      Validators.maxLength(TEN)
-    ]),
+    id: new FormControl('',
+      [
+        Validators.required,
+        Validators.minLength(THREE),
+        Validators.maxLength(TEN),
+      ],
+      [
+        this.productsService.validateData()
+      ]
+    ),
     logo: new FormControl('', [Validators.required]),
     name: new FormControl('', [
       Validators.required,
@@ -33,10 +39,17 @@ export class ProductFormComponent implements OnInit {
     date_revision: new FormControl('', [Validators.required]),
   })
 
+  constructor(private productsService: ProductsService) {
+  }
+
   ngOnInit(): void {
     const now = new Date();
     this.currentDate = this.formatDate(now);
-    this.productForm.valueChanges.subscribe(console.log);
+    this.productForm.valueChanges.subscribe((res) => {
+      console.log(res);
+      console.log(this.id?.errors);
+
+    });
   }
 
   /* getters from form */
