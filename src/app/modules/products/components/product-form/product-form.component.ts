@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IProduct } from '../../interfaces/product.interface';
 import { FIVE, ONE_HUNDRED, TEN, THREE, TWO_HUNDRED, ZERO } from 'src/app/core/utils/number.constants';
+import { errorsForm } from '../../utils/errors-form-constants';
 
 @Component({
   selector: 'bank-products-product-form',
@@ -9,7 +10,8 @@ import { FIVE, ONE_HUNDRED, TEN, THREE, TWO_HUNDRED, ZERO } from 'src/app/core/u
   styleUrls: ['./product-form.component.scss'],
 })
 export class ProductFormComponent implements OnInit {
-  currentDate!: string
+  currentDate!: string;
+  formErrors = errorsForm;
   productForm = new FormGroup({
     id: new FormControl('', [
       Validators.required,
@@ -37,12 +39,33 @@ export class ProductFormComponent implements OnInit {
     this.productForm.valueChanges.subscribe(console.log);
   }
 
+  /* getters from form */
+
+  get id() {
+    return this.productForm.get('id');
+  }
+
+  get name() {
+    return this.productForm.get('name');
+  }
+
+  get description() {
+    return this.productForm.get('description');
+  }
+
+  get logo() {
+    return this.productForm.get('logo');
+  }
+
   get dateRelease() {
     return this.productForm.get('date_release');
   }
+
   get dateRevision() {
     return this.productForm.get('date_revision');
   }
+
+  /* handler functions */
 
   onChangeDateRelease(): void {
     const dateRelease = new Date(this.dateRelease?.value || '');

@@ -30,6 +30,10 @@
         opacity: 0.5;
         cursor: not-allowed;
     }
+    .ng-invalid.ng-touched {
+        border: 1px solid $red;
+    }
+    span {
+        color: $red;
+    }
 }
-
-.select-control {}

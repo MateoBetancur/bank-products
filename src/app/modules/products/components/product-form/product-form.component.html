@@ -1,5 +1,5 @@
 <section class="product d-flex j-cont-cen">
-    <form class="product__form" [formGroup]="productForm">
+    <form class="product__form" [formGroup]="productForm" autocomplete="off">
         <div class="product__form__head">
             <h2>Formulario de Registro</h2>
         </div>
@@ -7,31 +7,53 @@
             <div class="form-control">
                 <label for="id">ID</label>
                 <input id="id" type="text" formControlName="id">
+                <ng-container *ngFor="let val of formErrors.id">
+                    <span id="error-{{val.type}}" *ngIf="id?.hasError(val.type) && id?.touched">
+                        {{val.message}}
+                    </span>
+                </ng-container>
             </div>
             <div class="form-control">
                 <label for="name">Nombre</label>
                 <input id="name" type="text" formControlName="name">
+                <ng-container *ngFor="let val of formErrors.name">
+                    <span id="error-{{val.type}}" *ngIf="name?.hasError(val.type) && name?.touched">
+                        {{val.message}}
+                    </span>
+                </ng-container>
             </div>
             <div class="form-control">
                 <label for="description">Descripcion</label>
                 <input id="description" type="text" formControlName="description">
+                <ng-container *ngFor="let val of formErrors.description">
+                    <span id="error-{{val.type}}" *ngIf="description?.hasError(val.type) && description?.touched">
+                        {{val.message}}
+                    </span>
+                </ng-container>
             </div>
             <div class="form-control">
                 <label for="logo">Logo</label>
                 <input id="logo" type="text" formControlName="logo">
+                <ng-container *ngFor="let val of formErrors.logo">
+                    <span id="error-{{val.type}}" *ngIf="logo?.hasError(val.type) && logo?.touched">
+                        {{val.message}}
+                    </span>
+                </ng-container>
             </div>
             <div class="form-control">
                 <label for="date_release">Fecha de liberación</label>
-                <input id="date_release" type="date" formControlName="date_release" [min]="currentDate" (change)="onChangeDateRelease()">
+                <input id="date_release" type="date" formControlName="date_release" [min]="currentDate"
+                    (change)="onChangeDateRelease()">
             </div>
             <div class="form-control">
                 <label for="date_revision">Fecha de revisión</label>
-                <input class="disabled" id="date_revision" type="date" formControlName="date_revision" [disabled]="true" readonly>
+                <input class="disabled" id="date_revision" type="date" formControlName="date_revision" [disabled]="true"
+                    readonly>
             </div>
         </div>
         <div class="product__form__foot d-flex j-cont-cen">
-            <button class="btn btn-secundary">Reiniciar</button>
-            <button class="btn" [disabled]="true">Enviar</button>
+            <button class="btn btn-secundary" (click)="productForm.reset()">Reiniciar</button>
+            <button class="btn" [disabled]="productForm.invalid">Enviar</button>
         </div>
     </form>
 </section>

@@ -15,6 +15,13 @@
     &:hover {
         background-color: rgba($color: $yellow, $alpha: 0.6);
     }
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        &:hover {
+            background-color: $yellow;
+        }
+    }
 }
 
 .btn-secundary {
