@@ -1,37 +1,37 @@
 <section class="product d-flex j-cont-cen">
-    <form class="product__form">
+    <form class="product__form" [formGroup]="productForm">
         <div class="product__form__head">
             <h2>Formulario de Registro</h2>
         </div>
         <div class="product__form__body">
             <div class="form-control">
                 <label for="id">ID</label>
-                <input id="id" type="text">
+                <input id="id" type="text" formControlName="id">
             </div>
             <div class="form-control">
                 <label for="name">Nombre</label>
-                <input id="name" type="text">
+                <input id="name" type="text" formControlName="name">
             </div>
             <div class="form-control">
                 <label for="description">Descripcion</label>
-                <input id="description" type="text">
+                <input id="description" type="text" formControlName="description">
             </div>
             <div class="form-control">
                 <label for="logo">Logo</label>
-                <input id="logo" type="text">
+                <input id="logo" type="text" formControlName="logo">
             </div>
             <div class="form-control">
-                <label for="logo">Fecha de liberación</label>
-                <input id="logo" type="date">
+                <label for="date_release">Fecha de liberación</label>
+                <input id="date_release" type="date" formControlName="date_release" [min]="currentDate" (change)="onChangeDateRelease()">
             </div>
             <div class="form-control">
-                <label for="logo">Fecha de revisión</label>
-                <input id="logo" type="date">
+                <label for="date_revision">Fecha de revisión</label>
+                <input class="disabled" id="date_revision" type="date" formControlName="date_revision" [disabled]="true" readonly>
             </div>
         </div>
         <div class="product__form__foot d-flex j-cont-cen">
             <button class="btn btn-secundary">Reiniciar</button>
-            <button class="btn">Enviar</button>
+            <button class="btn" [disabled]="true">Enviar</button>
         </div>
     </form>
 </section>

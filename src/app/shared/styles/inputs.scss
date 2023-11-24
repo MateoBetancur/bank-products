@@ -1,27 +1,35 @@
 .form-control {
     display: flex;
     flex-direction: column;
+
     label {
         font-weight: 700;
         margin-bottom: .8rem;
     }
-    input, select{
+
+    input,
+    select {
         border-radius: 0.3rem;
         border: 1px solid $gray-20;
         height: 3.5rem;
         // max-width: 16rem;
         font-size: 1rem;
         padding: 0.5rem;
-        &:focus{
+
+        &:focus {
             outline: none;
             border: 1px solid $yellow;
         }
     }
+
     select {
         max-width: 5rem;
     }
+
+    .disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
 }
 
-.select-control {
-    
-}
+.select-control {}
