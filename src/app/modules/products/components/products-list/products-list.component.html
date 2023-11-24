@@ -3,7 +3,7 @@
         <div class="form-control">
             <input type="text" placeholder="Search...">
         </div>
-        <button class="btn" [routerLink]="['/products/add']" routerLinkActive="router-link-active" >Agregar</button>
+        <button class="btn" [routerLink]="['/products/add']" routerLinkActive="router-link-active">Agregar</button>
     </div>
     <div class="products-list__table mt-1">
         <table>
@@ -17,23 +17,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr *ngFor="let item of productList">
                     <td>
                         <div class="logo">
-                            <img
-                                src="https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg" />
+                            <img [src]="item.logo" alt="img-{{item.id}}" />
                         </div>
                     </td>
-                    <td>Nombre del producto</td>
-                    <td>Descripción</td>
-                    <td>01/01/2001</td>
-                    <td>01/01/2001</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.date_release | date:"dd/MM/yyyy"}}</td>
+                    <td>{{item.date_revision | date:"dd/MM/yyyy"}}</td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="4">5 resultados</td>
-                    <td >
+                    <td colspan="4">{{productList.length}} resultados</td>
+                    <td>
                         <div class="form-control a-items-end">
                             <select name="" id="">
                                 <option value="5">5</option>
@@ -46,6 +45,4 @@
             </tfoot>
         </table>
     </div>
-    <!-- <button class="btn btn-secundary">Agregar</button> -->
-
 </section>
