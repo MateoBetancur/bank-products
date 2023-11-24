@@ -3,7 +3,7 @@
         <div class="form-control">
             <input type="text" placeholder="Search...">
         </div>
-        <button class="btn">Agregar</button>
+        <button class="btn" [routerLink]="['/products/add']" routerLinkActive="router-link-active" >Agregar</button>
     </div>
     <div class="products-list__table mt-1">
         <table>
@@ -20,8 +20,8 @@
                 <tr>
                     <td>
                         <div class="logo">
-                            <img src="https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg"
-                            />
+                            <img
+                                src="https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg" />
                         </div>
                     </td>
                     <td>Nombre del producto</td>
@@ -33,7 +33,15 @@
             <tfoot>
                 <tr>
                     <td colspan="4">5 resultados</td>
-                    <td>Select</td>
+                    <td >
+                        <div class="form-control a-items-end">
+                            <select name="" id="">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                            </select>
+                        </div>
+                    </td>
                 </tr>
             </tfoot>
         </table>

@@ -4,7 +4,7 @@
     label {
         font-weight: 700;
     }
-    input{
+    input, select{
         border-radius: 0.3rem;
         border: 1px solid $gray-20;
         height: 2.5rem;
@@ -16,4 +16,11 @@
             border: 1px solid $yellow;
         }
     }
+    select {
+        max-width: 5rem;
+    }
+}
+
+.select-control {
+    
 }
