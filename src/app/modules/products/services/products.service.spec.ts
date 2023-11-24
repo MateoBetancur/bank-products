@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ProductsService } from './products.service';
+import { IProduct } from '../interfaces/product.interface';
 
 describe('ProductsService', () => {
   let service: ProductsService;
@@ -37,5 +38,26 @@ describe('ProductsService', () => {
     expect(req.request.method).toEqual('GET');
 
     req.flush(mockProducts);
+  });
+
+  it('should create a new product via POST', () => {
+    const mockProduct: IProduct = {
+      "id": "trj-crd",
+      "name": "Tarjeta de credito",
+      "description": "Tareta de consumo bajo modalidad de credito",
+      "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg",
+      "date_release": "2023-11-24" as any,
+      "date_revision": "2023-11-24" as any
+    }
+
+    service.createProduct(mockProduct).subscribe((createdProduct) => {
+      expect(createdProduct).toEqual(mockProduct);
+    });
+
+    const req = httpTestingController.expectOne(service.URL_BASE);
+    expect(req.request.method).toEqual('POST');
+    expect(req.request.body).toEqual(mockProduct);
+
+    req.flush(mockProduct);
   });
 });
