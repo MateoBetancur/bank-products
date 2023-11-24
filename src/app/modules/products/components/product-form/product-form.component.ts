@@ -4,6 +4,8 @@ import { IProduct } from '../../interfaces/product.interface';
 import { FIVE, ONE_HUNDRED, TEN, THREE, TWO_HUNDRED, ZERO } from 'src/app/core/utils/number.constants';
 import { errorsForm } from '../../utils/errors-form-constants';
 import { ProductsService } from '../../services/products.service';
+import { catchError, tap, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'bank-products-product-form',
@@ -40,7 +42,10 @@ export class ProductFormComponent implements OnInit {
     date_revision: new FormControl('', [Validators.required]),
   })
 
-  constructor(private productsService: ProductsService) {
+  constructor(
+    private productsService: ProductsService,
+    private router: Router
+  ) {
   }
 
   ngOnInit(): void {
@@ -95,5 +100,16 @@ export class ProductFormComponent implements OnInit {
 
   onSubmit(): void {
     this.isLoading = true;
+    const value = this.productForm.value as IProduct;
+    this.productsService.createProduct(value).pipe(
+      tap(() => {
+        this.isLoading = false;
+        this.router.navigateByUrl('/products')
+      }),
+      catchError((err) => {
+        this.isLoading = false;
+        return throwError(() => err)
+      })
+    ).subscribe()
   }
 }
