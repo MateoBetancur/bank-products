@@ -1,5 +1,5 @@
 <section class="product d-flex j-cont-cen">
-    <form class="product__form" [formGroup]="productForm" autocomplete="off">
+    <form class="product__form" [formGroup]="productForm" (submit)="onSubmit()" autocomplete="off">
         <div class="product__form__head">
             <h2>Formulario de Registro</h2>
         </div>
@@ -53,7 +53,8 @@
         </div>
         <div class="product__form__foot d-flex j-cont-cen">
             <button class="btn btn-secundary" (click)="productForm.reset()">Reiniciar</button>
-            <button class="btn" [disabled]="productForm.invalid">Enviar</button>
+            <button class="btn" [disabled]="productForm.invalid" type="submit">Enviar</button>
         </div>
     </form>
 </section>
+<bank-products-loader *ngIf="isLoading"></bank-products-loader>

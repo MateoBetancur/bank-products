@@ -1,0 +1,33 @@
+@import 'src/app/shared/styles/colors';
+
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    position: fixed;
+    z-index: 1;
+    background-color: rgba($color: $white, $alpha: 0.7);
+    backdrop-filter: blur(.15rem);
+
+    &__spiner {
+        border: 8px solid $gray-10;
+        border-top: 8px solid $yellow;
+        border-radius: 50%;
+        width: 5rem;
+        height: 5rem;
+        animation: spin 1s linear infinite;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

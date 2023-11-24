@@ -7,21 +7,23 @@ import { NavBarComponent } from './shared/components/nav-bar/nav-bar.component';
 import { NgOptimizedImage } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthIdInterceptorInterceptor } from './core/services/auth-id-interceptor.interceptor';
+import { LoaderComponent } from './shared/components/loader/loader.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [AppComponent, NavBarComponent],
+  declarations: [AppComponent],
   imports: [
-    NgOptimizedImage,
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
+    SharedModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthIdInterceptorInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

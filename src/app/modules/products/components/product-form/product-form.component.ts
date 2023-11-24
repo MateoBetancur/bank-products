@@ -13,6 +13,7 @@ import { ProductsService } from '../../services/products.service';
 export class ProductFormComponent implements OnInit {
   currentDate!: string;
   formErrors = errorsForm;
+  isLoading = false;
   productForm = new FormGroup({
     id: new FormControl('',
       [
@@ -90,5 +91,9 @@ export class ProductFormComponent implements OnInit {
 
   formatDate(date: Date): string {
     return date.toISOString().slice(ZERO, TEN)
+  }
+
+  onSubmit(): void {
+    this.isLoading = true;
   }
 }
