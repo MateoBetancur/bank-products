@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, catchError, map, of } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, of, tap } from 'rxjs';
 import { IProduct } from '../interfaces/product.interface';
 
 import { HttpClient } from '@angular/common/http';
@@ -28,6 +28,15 @@ export class ProductsService {
       params: {
         id
       }
+    })
+  }
+
+  deleteProduct(id: string): Observable<string> {
+    return this.httpClient.delete(this.URL_BASE, {
+      params: {
+        id
+      },
+      responseType: 'text',
     })
   }
 

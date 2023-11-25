@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IProduct } from '../../interfaces/product.interface';
-import { FIVE, ONE_HUNDRED, TEN, THREE, TWO_HUNDRED, ZERO } from 'src/app/core/utils/number.constants';
+import { FIVE, ONE, ONE_HUNDRED, TEN, THREE, TWO_HUNDRED, ZERO } from 'src/app/core/utils/number.constants';
 import { errorsForm } from '../../utils/errors-form-constants';
 import { ProductsService } from '../../services/products.service';
-import { catchError, tap, throwError } from 'rxjs';
+import { catchError, take, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -114,6 +114,7 @@ export class ProductFormComponent implements OnInit {
     const value = this.productForm.value as IProduct;
     const serviceToUse = this.productToEdit ? 'editProduct' : 'createProduct'
     this.productsService[serviceToUse](value).pipe(
+      take(ONE),
       tap(() => {
         this.isLoading = false;
         this.router.navigateByUrl('/list')
