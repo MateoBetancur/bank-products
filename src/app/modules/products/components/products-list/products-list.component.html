@@ -1,12 +1,12 @@
 <section class="products-list">
     <div class="products-list__head d-flex j-space-bet a-items-cen">
         <div class="form-control">
-            <input type="text" placeholder="Search...">
+            <input type="text" placeholder="Search..." (keyup)="onFiltered()" [(ngModel)]="search">
         </div>
         <button class="btn" [routerLink]="['/products/add']" routerLinkActive="router-link-active">Agregar</button>
     </div>
-    <div class="products-list__table mt-1">
-        <table>
+    <div class="products-list__table mt-1 d-flex j-cont-cen a-items-cen">
+        <table *ngIf="productListFiltered.length;else empty">
             <thead>
                 <tr>
                     <th>Logo</th>
@@ -17,7 +17,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of productList">
+                <tr *ngFor="let item of productListFiltered">
                     <td>
                         <div class="logo">
                             <img [src]="item.logo" alt="img-{{item.id}}" />
@@ -31,10 +31,10 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="4">{{productList.length}} resultados</td>
+                    <td colspan="4">{{productListFiltered.length}} resultados</td>
                     <td>
                         <div class="form-control a-items-end">
-                            <select name="" id="">
+                            <select [(ngModel)]="productsAmount" (change)="onFiltered()">
                                 <option value="5">5</option>
                                 <option value="10">10</option>
                                 <option value="20">20</option>
@@ -44,5 +44,9 @@
                 </tr>
             </tfoot>
         </table>
+        <ng-template #empty>
+            <h3>No hay resultados</h3>
+        </ng-template>
     </div>
 </section>
+<bank-products-loader *ngIf="isLoading"></bank-products-loader>

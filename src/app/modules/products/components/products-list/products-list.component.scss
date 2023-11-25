@@ -7,11 +7,17 @@
     &__table {
         background-color: $white;
         padding: 1.5rem;
+        min-height: 32rem;
+
+        h3 {
+            text-align: center;
+        }
 
         table {
             border-collapse: collapse;
             width: 100%;
             text-align: center;
+
 
             thead {
                 background-color: $gray-00;

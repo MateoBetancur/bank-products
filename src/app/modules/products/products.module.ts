@@ -4,7 +4,7 @@ import { Route, RouterModule } from '@angular/router';
 // import { productRoutes } from './products.routes';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ProductsListComponent } from './components/products-list/products-list.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 export const productRoutes: Route[] = [
 
@@ -29,6 +29,7 @@ export const productRoutes: Route[] = [
     RouterModule.forChild(productRoutes),
     NgOptimizedImage,
     ReactiveFormsModule,
+    FormsModule,
     SharedModule
   ],
 })
