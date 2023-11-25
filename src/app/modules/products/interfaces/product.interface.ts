@@ -1,8 +1,8 @@
 export interface IProduct {
-    id: String,
-    name: String,
-    description: String,
-    logo: String,
+    id: string,
+    name: string,
+    description: string,
+    logo: string,
     date_release: string,
     date_revision: string
 }

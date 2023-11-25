@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { IProduct } from '../../interfaces/product.interface';
 import { FIVE, TWO_HUNDRED, ZERO } from 'src/app/core/utils/number.constants';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'bank-products-products-list',
@@ -16,7 +17,10 @@ export class ProductsListComponent implements OnInit {
   searchTimeout: any;
   productsAmount = FIVE;
   isLoading = true;
-  constructor(private productsService: ProductsService) {
+  constructor(
+    private productsService: ProductsService,
+    private router: Router,
+  ) {
 
   }
 
@@ -38,5 +42,11 @@ export class ProductsListComponent implements OnInit {
       }).slice(ZERO, this.productsAmount)
       this.isLoading = false
     }, TWO_HUNDRED);
+  }
+
+  goToEdit(product: IProduct) {
+    console.log(product);
+    this.productsService.setProdToEdit(product)
+    this.router.navigateByUrl('/list/product');
   }
 }

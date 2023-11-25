@@ -6,7 +6,7 @@
         <div class="product__form__body">
             <div class="form-control">
                 <label for="id">ID</label>
-                <input id="id" type="text" formControlName="id">
+                <input id="id" type="text" formControlName="id" [ngClass]="{'disabled': !!productToEdit}">
                 <ng-container *ngFor="let val of formErrors.id">
                     <span id="error-{{val.type}}" *ngIf="id?.hasError(val.type) && id?.touched">
                         {{val.message}}

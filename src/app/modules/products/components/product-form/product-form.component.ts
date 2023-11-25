@@ -16,6 +16,7 @@ export class ProductFormComponent implements OnInit {
   currentDate!: string;
   formErrors = errorsForm;
   isLoading = false;
+  productToEdit: IProduct | null = null
   productForm = new FormGroup({
     id: new FormControl('',
       [
@@ -44,7 +45,7 @@ export class ProductFormComponent implements OnInit {
 
   constructor(
     private productsService: ProductsService,
-    private router: Router
+    private router: Router,
   ) {
   }
 
@@ -56,6 +57,10 @@ export class ProductFormComponent implements OnInit {
       console.log(this.id?.errors);
 
     });
+    this.productToEdit = this.productsService.getProdToEdit;
+    if (this.productToEdit) {
+      this.setForm()
+    }
   }
 
   /* getters from form */
@@ -98,13 +103,28 @@ export class ProductFormComponent implements OnInit {
     return date.toISOString().slice(ZERO, TEN)
   }
 
+  setForm(): void {
+    if (this.productToEdit) {
+      const { date_release, date_revision } = this.productToEdit
+      this.productForm.patchValue(this.productToEdit as any);
+      this.dateRelease?.setValue(this.formatDate(new Date(date_release)))
+      this.dateRevision?.setValue(this.formatDate(new Date(date_revision)))
+      this.id?.disable()
+    }
+  }
+
   onSubmit(): void {
     this.isLoading = true;
+    this.id?.enable()
     const value = this.productForm.value as IProduct;
-    this.productsService.createProduct(value).pipe(
+    console.log(value);
+    
+    const serviceToUse = this.productToEdit ? 'editProduct' : 'createProduct'
+    this.productsService[serviceToUse](value).pipe(
       tap(() => {
         this.isLoading = false;
-        this.router.navigateByUrl('/products')
+        this.router.navigateByUrl('/list')
+        this.productToEdit && this.productsService.setProdToEdit(null)
       }),
       catchError((err) => {
         this.isLoading = false;

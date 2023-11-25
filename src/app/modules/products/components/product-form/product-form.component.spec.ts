@@ -58,7 +58,7 @@ describe('ProductFormComponent', () => {
     tick();
 
     expect(component.isLoading).toBe(false);
-    expect(spyRouter).toHaveBeenCalledWith('/products');
+    expect(spyRouter).toHaveBeenCalledWith('/list');
   }));
 
   it('should set isLoading to false and handle error on product creation', () => {

@@ -3,7 +3,7 @@
         <div class="form-control">
             <input type="text" placeholder="Search..." (keyup)="onFiltered()" [(ngModel)]="search">
         </div>
-        <button class="btn" [routerLink]="['/products/add']" routerLinkActive="router-link-active">Agregar</button>
+        <button class="btn" [routerLink]="['/list/product']" routerLinkActive="router-link-active">Agregar</button>
     </div>
     <div class="products-list__table mt-1 d-flex j-cont-cen a-items-cen">
         <table *ngIf="productListFiltered.length;else empty">
@@ -13,7 +13,7 @@
                     <th>Nombre del producto</th>
                     <th>Descripción</th>
                     <th>Fecha de liberación</th>
-                    <th>Fecha de reestructuración</th>
+                    <th colspan="2">Fecha de reestructuración</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +27,15 @@
                     <td>{{item.description}}</td>
                     <td>{{item.date_release | date:"dd/MM/yyyy"}}</td>
                     <td>{{item.date_revision | date:"dd/MM/yyyy"}}</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="dropdown__btn">&#8942;</button>
+                            <ul class="dropdown__content">
+                                <li><a (click)="goToEdit(item)">Editar</a></li>
+                                <li> <a href=" #">Eliminar</a></li>
+                            </ul>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
             <tfoot>

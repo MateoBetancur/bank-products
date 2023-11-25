@@ -4,10 +4,10 @@ export const appRoutes: Route[] = [
     {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'products'
+        redirectTo: 'list'
     },
     {
-        path: 'products',
+        path: 'list',
         loadChildren: () => import('./modules/products/products.module').then((m) => m.ProductsModule)
     },
     {

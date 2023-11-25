@@ -6,21 +6,7 @@ import { ProductFormComponent } from './components/product-form/product-form.com
 import { ProductsListComponent } from './components/products-list/products-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
-export const productRoutes: Route[] = [
-
-  {
-    path: '',
-    component: ProductsListComponent,
-  },
-  {
-    path: 'add',
-    component: ProductFormComponent
-  },
-  {
-    path: 'edit/:id',
-    component: ProductFormComponent
-  }
-];
+import { productRoutes } from './products.routes';
 
 @NgModule({
   declarations: [ProductsListComponent, ProductFormComponent],
