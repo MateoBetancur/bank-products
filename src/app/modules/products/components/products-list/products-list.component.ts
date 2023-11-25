@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { IProduct } from '../../interfaces/product.interface';
 import { FIVE, TWO_HUNDRED, ZERO } from 'src/app/core/utils/number.constants';
@@ -17,6 +17,9 @@ export class ProductsListComponent implements OnInit {
   searchTimeout: any;
   productsAmount = FIVE;
   isLoading = true;
+  isOpenModal = false;
+  modalTxt!: string
+  idToDelete!: string;
   constructor(
     private productsService: ProductsService,
     private router: Router,
@@ -44,8 +47,25 @@ export class ProductsListComponent implements OnInit {
     }, TWO_HUNDRED);
   }
 
-  goToEdit(product: IProduct) {
+  goToEdit(product: IProduct): void {
     this.productsService.setProdToEdit(product)
     this.router.navigateByUrl('/list/product');
   }
+
+  onDelete(product: IProduct): void {
+    this.idToDelete = product.id;
+    this.modalTxt = `¿Estas seguro de eliminar el producto ${product.name}?`
+    this.isOpenModal = true;
+  }
+
+  modalEvent(event: boolean): void {
+    if (event) {
+
+    } else {
+
+      this.isOpenModal = false;
+    }
+  }
+
+
 }

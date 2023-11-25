@@ -32,7 +32,7 @@
                             <button class="dropdown__btn">&#8942;</button>
                             <ul class="dropdown__content">
                                 <li><a (click)="goToEdit(item)">Editar</a></li>
-                                <li> <a href=" #">Eliminar</a></li>
+                                <li> <a (click)="onDelete(item)">Eliminar</a></li>
                             </ul>
                         </div>
                     </td>
@@ -59,3 +59,4 @@
     </div>
 </section>
 <bank-products-loader *ngIf="isLoading"></bank-products-loader>
+<bank-products-modal *ngIf="isOpenModal" [modalText]="modalTxt" (modalEvent)="modalEvent($event)"></bank-products-modal>
