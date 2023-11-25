@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, fakeAsync } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ProductsService } from './products.service';
 import { IProduct } from '../interfaces/product.interface';
@@ -59,5 +59,33 @@ describe('ProductsService', () => {
     expect(req.request.body).toEqual(mockProduct);
 
     req.flush(mockProduct);
+  });
+
+  it('should return true for a valid ID', () => {
+    const id = 'test-1';
+    const expectedResult = true;
+
+    service.verifyId(id).subscribe((result) => {
+      expect(result).toEqual(expectedResult);
+    });
+
+    const req = httpTestingController.expectOne(`${service.URL_BASE}/verification?id=${id}`);
+    expect(req.request.method).toEqual('GET');
+
+    req.flush(expectedResult);
+  });
+
+  it('should return false for an invalid ID', () => {
+    const id = 'test-2';
+    const expectedResult = false;
+
+    service.verifyId(id).subscribe((result) => {
+      expect(result).toEqual(expectedResult);
+    });
+
+    const req = httpTestingController.expectOne(`${service.URL_BASE}/verification?id=${id}`);
+    expect(req.request.method).toEqual('GET');
+
+    req.flush(expectedResult);
   });
 });
