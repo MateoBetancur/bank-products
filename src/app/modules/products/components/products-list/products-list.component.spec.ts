@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ProductsListComponent } from './products-list.component';
 import { ProductsService } from '../../services/products.service';
 import { MockProductsService, mockProducts } from '../../utils/products.mock';
@@ -7,6 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { Router } from '@angular/router';
 import { IProduct } from '../../interfaces/product.interface';
+import { of, throwError } from 'rxjs';
 
 describe('ProductsListComponent', () => {
   let component: ProductsListComponent;
@@ -53,7 +54,7 @@ describe('ProductsListComponent', () => {
     ]);
   });
 
-  it('should set product for edit and navigate to edit page',()=>{
+  it('should set product for edit and navigate to edit page', () => {
     const productToEdit: IProduct = mockProducts[0];
     const spyService = jest.spyOn(productsServiceMock, 'setProdToEdit');
     const spyRouter = jest.spyOn(mockRouter, 'navigateByUrl');
@@ -63,4 +64,45 @@ describe('ProductsListComponent', () => {
     expect(spyService).toHaveBeenCalledWith(productToEdit)
     expect(spyRouter).toHaveBeenCalledWith('/list/product')
   })
+
+  it('should set properties on onDelete', () => {
+    const product: IProduct = mockProducts[0];
+
+    component.onDelete(product);
+
+    expect(component.idToDelete).toEqual(product.id);
+    expect(component.modalTxt).toEqual(`¿Estas seguro de eliminar el producto ${product.name}?`);
+    expect(component.isOpenModal).toBe(true);
+  });
+
+  it('should handle modalEvent with true', () => {
+    component.idToDelete = 'test-id';
+    jest.spyOn(productsServiceMock, 'deleteProduct').mockReturnValue(of(''));
+    jest.spyOn(component, 'getData');
+
+    component.modalEvent(true);
+
+    expect(component.isOpenModal).toBe(false);
+    expect(component.isLoading).toBe(false);
+    expect(component.getData).toHaveBeenCalled();
+  });
+
+  it('should handle error in modalEvent', () => {
+    component.idToDelete = 'test-id';
+    const errorMessage = 'Deletion failed';
+    jest.spyOn(productsServiceMock, 'deleteProduct').mockReturnValue(throwError(() => errorMessage));
+
+    component.modalEvent(true);
+
+    expect(component.isOpenModal).toBe(false);
+    expect(component.isLoading).toBe(false);
+  });
+
+  it('should handle modalEvent with false', () => {
+    component.idToDelete = '123';
+
+    component.modalEvent(false);
+
+    expect(component.isOpenModal).toBe(false);
+  });
 });

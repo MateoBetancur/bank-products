@@ -18,4 +18,17 @@ describe('ModalComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should set modalText and emit event on cancel', () => {
+    const modalText = 'Test Modal Text';
+    const emittedValue = false;
+    jest.spyOn(component.modalEvent, 'emit')
+
+    component.modalText = modalText;
+    component.onCancelModal(emittedValue);
+
+    expect(component.modalTxt).toEqual(modalText);
+    expect(component.modalEvent.emit).toHaveBeenCalledWith(emittedValue);
+  });
+
 });

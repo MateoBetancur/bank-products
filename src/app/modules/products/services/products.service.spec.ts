@@ -124,4 +124,14 @@ describe('ProductsService', () => {
 
     expect(retrievedProduct).toBeNull();
   });
+
+  it('should delete product successfully', () => {
+    const productId = 'test-id';
+
+    service.deleteProduct(productId).subscribe();
+
+    const req = httpTestingController.expectOne(`${service.URL_BASE}?id=${productId}`);
+    expect(req.request.method).toEqual('DELETE');
+    req.flush('success');
+  });
 });

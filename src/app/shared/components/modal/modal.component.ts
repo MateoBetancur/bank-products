@@ -11,7 +11,7 @@ export class ModalComponent {
     this.modalTxt = value;
   }
   @Output() modalEvent = new EventEmitter<boolean>();
-  showModal = false;
+
   onCancelModal(event: boolean): void {
     this.modalEvent.emit(event)
   }

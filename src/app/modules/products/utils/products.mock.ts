@@ -11,6 +11,7 @@ export class MockProductsService {
     createProduct() { }
     editProduct() { }
     setProdToEdit() { }
+    deleteProduct() { }
     get getProdToEdit() {
         return
     }
