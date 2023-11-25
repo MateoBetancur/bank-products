@@ -8,8 +8,12 @@ export class MockProductsService {
     validateData() {
         return of(true)
     }
-    
     createProduct() { }
+    editProduct() { }
+    setProdToEdit() { }
+    get getProdToEdit() {
+        return
+    }
 }
 export const mockProducts: IProduct[] = [
     {

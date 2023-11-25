@@ -5,11 +5,14 @@ import { MockProductsService, mockProducts } from '../../utils/products.mock';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { Router } from '@angular/router';
+import { IProduct } from '../../interfaces/product.interface';
 
 describe('ProductsListComponent', () => {
   let component: ProductsListComponent;
   let fixture: ComponentFixture<ProductsListComponent>;
   let productsServiceMock: ProductsService;
+  let mockRouter: Router;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ProductsListComponent],
@@ -23,6 +26,7 @@ describe('ProductsListComponent', () => {
     fixture = TestBed.createComponent(ProductsListComponent);
     component = fixture.componentInstance;
     productsServiceMock = TestBed.inject(ProductsService);
+    mockRouter = TestBed.inject(Router);
     fixture.detectChanges();
   });
 
@@ -48,4 +52,15 @@ describe('ProductsListComponent', () => {
       expect.objectContaining({ name: searchTxt })
     ]);
   });
+
+  it('should set product for edit and navigate to edit page',()=>{
+    const productToEdit: IProduct = mockProducts[0];
+    const spyService = jest.spyOn(productsServiceMock, 'setProdToEdit');
+    const spyRouter = jest.spyOn(mockRouter, 'navigateByUrl');
+
+    component.goToEdit(productToEdit);
+
+    expect(spyService).toHaveBeenCalledWith(productToEdit)
+    expect(spyRouter).toHaveBeenCalledWith('/list/product')
+  })
 });

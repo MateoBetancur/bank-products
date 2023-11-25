@@ -52,11 +52,6 @@ export class ProductFormComponent implements OnInit {
   ngOnInit(): void {
     const now = new Date();
     this.currentDate = this.formatDate(now);
-    this.productForm.valueChanges.subscribe((res) => {
-      console.log(res);
-      console.log(this.id?.errors);
-
-    });
     this.productToEdit = this.productsService.getProdToEdit;
     if (this.productToEdit) {
       this.setForm()
@@ -117,8 +112,6 @@ export class ProductFormComponent implements OnInit {
     this.isLoading = true;
     this.id?.enable()
     const value = this.productForm.value as IProduct;
-    console.log(value);
-    
     const serviceToUse = this.productToEdit ? 'editProduct' : 'createProduct'
     this.productsService[serviceToUse](value).pipe(
       tap(() => {

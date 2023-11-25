@@ -19,7 +19,7 @@ describe('ProductFormComponent', () => {
       imports: [
         ReactiveFormsModule,
         RouterTestingModule.withRoutes([{
-          path: 'products',
+          path: 'list',
           component: ProductsListComponent
         }])
       ],
@@ -69,4 +69,18 @@ describe('ProductFormComponent', () => {
 
     expect(component.isLoading).toBe(false);
   });
+
+  it('should set isLoading to false and navigate on successful product edit', fakeAsync(() => {
+    jest.spyOn(productsServiceMock, 'editProduct').mockReturnValue(of(mockProducts[0]));
+    const spyService = jest.spyOn(productsServiceMock, 'setProdToEdit');
+    const spyRouter = jest.spyOn(mockRouter, 'navigateByUrl')
+    component.productToEdit = mockProducts[0];
+
+    component.onSubmit();
+    tick();
+
+    expect(component.isLoading).toBe(false);
+    expect(spyRouter).toHaveBeenCalledWith('/list');
+    expect(spyService).toHaveBeenCalledWith(null);
+  }));
 });

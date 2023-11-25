@@ -2,6 +2,7 @@ import { TestBed, fakeAsync } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ProductsService } from './products.service';
 import { IProduct } from '../interfaces/product.interface';
+import { mockProducts } from '../utils/products.mock';
 
 describe('ProductsService', () => {
   let service: ProductsService;
@@ -87,5 +88,40 @@ describe('ProductsService', () => {
     expect(req.request.method).toEqual('GET');
 
     req.flush(expectedResult);
+  });
+
+
+  it('should edit a product successfully', () => {
+    const editedProduct: IProduct = mockProducts[0];
+
+    service.editProduct(editedProduct).subscribe();
+
+    const req = httpTestingController.expectOne(`${service.URL_BASE}?id=${editedProduct.id}`);
+    expect(req.request.method).toEqual('PUT');
+    req.flush(editedProduct);
+  });
+
+  it('should set product to edit', () => {
+    const productToEdit: IProduct = mockProducts[0];
+
+    service.setProdToEdit(productToEdit);
+
+    expect(service.getProdToEdit).toEqual(productToEdit);
+  });
+
+  it('should get product to edit', () => {
+    const productToEdit: IProduct = mockProducts[0];
+
+    service.setProdToEdit(productToEdit);
+
+    const retrievedProduct = service.getProdToEdit;
+
+    expect(retrievedProduct).toEqual(productToEdit);
+  });
+
+  it('should get null if no product to edit', () => {
+    const retrievedProduct = service.getProdToEdit;
+
+    expect(retrievedProduct).toBeNull();
   });
 });

@@ -45,7 +45,6 @@ export class ProductsListComponent implements OnInit {
   }
 
   goToEdit(product: IProduct) {
-    console.log(product);
     this.productsService.setProdToEdit(product)
     this.router.navigateByUrl('/list/product');
   }
